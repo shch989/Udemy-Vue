@@ -1,15 +1,43 @@
 const app = Vue.createApp({
   data() {
     return {
-      counter: 0,
+      counter: 10,
       name: '',
-      confirmedName: ''
+      lastName: '',
+      // fullname: ''
     };
   },
-  methods: {
-    confirmInput() {
-      this.confirmedName = this.name
+  watch: {
+    counter(value) {
+      if(value > 50) {
+        setTimeout(() => {
+          this.counter = 0
+        }, 2000)
+      }
+    }
+    // name(value) {
+    //   if(value === '') {
+    //     this.fullname = ''
+    //   }
+    //   this.fullname = value + ' ' + this.lastName
+    // },
+    // lastName(value) {
+    //   if(value === '') {
+    //     this.fullname = ''
+    //   }
+    //   this.fullname = this.name + ' ' + value
+    // }
+  },
+  computed: {
+    fullname() {
+      console.log('Running again...');
+      if (this.name === '' || this.lastName === '') {
+        return '';
+      }
+      return this.name + ' ' + this.lastName
     },
+  },
+  methods: {
     submitForm() {
       alert('Submitted!')
     },
@@ -25,6 +53,10 @@ const app = Vue.createApp({
     },
     setName(event) {
       this.name = event.target.value
+    },
+    resetInput() {
+      this.name = ''
+      this.lastName = ''
     }
   },
 });
